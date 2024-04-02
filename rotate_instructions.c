@@ -15,15 +15,18 @@
 void	ra_rotate_a(Stack *stack)
 {
 	shift_up_stack(stack);
+	write(1, "ra\n",3);
 }
 
 void	rb_rotate_b(Stack *stack)
 {
 	shift_up_stack(stack);
+	write(1, "rb\n",3);
 }
 
 void	rr_rotate_ab(Stack *stack_a, Stack *stack_b)
 {
 	ra_rotate_a(stack_a);
 	rb_rotate_b(stack_b);
+	write(1, "rr\n",3);
 }
