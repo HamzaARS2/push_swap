@@ -4,7 +4,7 @@
 
 typedef struct
 {
-    int *content;
+    int *arr;
     size_t size;
 } Stack;
 

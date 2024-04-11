@@ -1,11 +1,11 @@
 #include "push_swap.h"
 
 void print_stack(Stack *stack) {
-    printf("Stack contents: [");
+    printf("Stack arrs: [");
     
     if (!is_empty(stack)) {
         for (size_t i = 0; i < stack->size; ++i) {
-            printf("%d", stack->content[i]);
+            printf("%d", stack->arr[i]);
             if (i < stack->size - 1) {
                 printf(", ");
             }
@@ -17,41 +17,14 @@ void print_stack(Stack *stack) {
 
 void    sort_three(Stack *stack) 
 {
-    if (stack->content[0] > stack->content[1] && stack->content[0] > stack->content[stack->size - 1])
+    if (stack->arr[0] > stack->arr[1] && stack->arr[0] > stack->arr[stack->size - 1])
         ra_rotate_a(stack);
-    if (stack->content[stack->size - 1] < stack->content[1] && stack->content[stack->size - 1] < stack->content[0])
+    if (stack->arr[stack->size - 1] < stack->arr[1] && stack->arr[stack->size - 1] < stack->arr[0])
         rra_reverse_rotate_a(stack);
-    if (stack->content[1] > stack->content[stack->size - 1])
+    if (stack->arr[1] > stack->arr[stack->size - 1])
         rra_reverse_rotate_a(stack);
-    if (stack->content[0] > stack->content[1])
+    if (stack->arr[0] > stack->arr[1])
         sa_swap_a(stack);
-}
-
-void    sort_five(Stack *stack_a, Stack *stack_b) 
-{
-    int max_i;
-
-    while (stack_a->size > 3)
-    {
-        max_i = max_index(stack_a->content, stack_a->size);
-        if (max_i <= stack_a->size / 2)
-        {
-            while (--max_i + 1)
-                ra_rotate_a(stack_a);
-        }
-        else 
-        {
-            while ((stack_a->size) - (max_i++))
-                rra_reverse_rotate_a(stack_a);
-        }
-        pb_push_b(stack_b, stack_a);
-    }
-    sort_three(stack_a);
-    while (stack_b->size)
-    {
-        pa_push_a(stack_a, stack_b);
-        ra_rotate_a(stack_a);
-    }
 }
 
 int main(int argc, char *argv[])
@@ -59,8 +32,7 @@ int main(int argc, char *argv[])
     Stack *stack_a;
     Stack *stack_b;
     int size;
-    int *a;
-
+    
     size = argc - 1;
     if (!size)
         return (0);
@@ -69,7 +41,21 @@ int main(int argc, char *argv[])
     print_stack(stack_a);
     if (stack_a->size <= 3)
         sort_three(stack_a);
-    else if (stack_a->size <= 5)
-        sort_five(stack_a, stack_b);
-    print_stack(stack_a);
+    else
+        sort(stack_a, stack_b);
+
+    // int arr_a[] = {7,1,6,3,9,4,8};
+    // size_t size_a = sizeof(arr_a) / sizeof(arr_a[0]);
+    // Stack stack_a = {arr_a, size_a};
+    // int arr_b[] = {2,5};
+    // size_t size_b = sizeof(arr_b) / sizeof(arr_b[0]);
+    // Stack stack_b = {arr_b, size_b};
+    //  // Display the result
+    // ab_move result = find_cheapest_number(&stack_a, &stack_b);
+    // printf("Cheapest index: %zu\n", result.cheapest_index);
+    // printf("A moves: (%d, %zu)\n", result.a_moves.type, result.a_moves.count);
+    // printf("B moves: (%d, %zu)\n", result.b_moves.type, result.b_moves.count);
+    // printf("combined: type=rr, count=%zu\n", result.rr);
+    // printf("combined: type=rrr, count=%zu\n", result.rrr);
+
 }

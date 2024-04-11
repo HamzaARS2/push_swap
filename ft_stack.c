@@ -19,8 +19,8 @@ Stack   *init_stack(size_t size, char **data, int fill)
     stack = malloc(sizeof(Stack));
     if (!stack)
         return (0);   
-    stack->content = malloc(size * sizeof(int));
-    if (!stack->content)
+    stack->arr = malloc(size * sizeof(int));
+    if (!stack->arr)
     {
         free(stack);
         return (0);        
@@ -48,11 +48,11 @@ int    push(Stack *stack, int data)
     newstack[i] = data;
     while (i < stack->size)
     {
-        newstack[i + 1] = stack->content[i]; 
+        newstack[i + 1] = stack->arr[i]; 
         i++;
     }
     clear_stack(stack);
-    stack->content = newstack;
+    stack->arr = newstack;
     stack->size++;
     return (stack->size);
 }
@@ -69,14 +69,14 @@ int pop(Stack *stack)
     newstack = malloc((stack->size - 1) * sizeof(int));
     if (!newstack)
         return (-1);
-    elem = stack->content[i];
+    elem = stack->arr[i];
     while (i < stack->size - 1)
     {
-        newstack[i] = stack->content[i + 1];
+        newstack[i] = stack->arr[i + 1];
         i++;
     }
     clear_stack(stack);
-    stack->content = newstack;
+    stack->arr = newstack;
     stack->size--;
     return (elem);
 }

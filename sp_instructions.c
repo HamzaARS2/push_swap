@@ -16,7 +16,7 @@ void	sa_swap_a(Stack *stack)
 {
 	if (stack->size <= 1)
 		return ;
-	ft_swapi(stack->content, stack->content + 1);
+	ft_swapi(stack->arr, stack->arr + 1);
 	write(1, "sa\n",3);
 }
 
@@ -24,7 +24,7 @@ void	sb_swap_b(Stack *stack)
 {
 	if (stack->size <= 1)
 		return ;
-	ft_swapi(stack->content, stack->content + 1);
+	ft_swapi(stack->arr, stack->arr + 1);
 	write(1, "sb\n",3);
 }
 
@@ -41,7 +41,7 @@ void	pa_push_a(Stack *stack_a, Stack *stack_b)
 	write(1, "pa\n",3);
 }
 
-void	pb_push_b(Stack *stack_b, Stack *stack_a)
+void	pb_push_b(Stack *stack_a, Stack *stack_b)
 {
 	push(stack_b, pop(stack_a));
 	write(1, "pb\n",3);
