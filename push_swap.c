@@ -38,24 +38,9 @@ int main(int argc, char *argv[])
         return (0);
     stack_a = init_stack(size, argv + 1, 1);
     stack_b = init_stack(0, 0, 0);
-    print_stack(stack_a);
     if (stack_a->size <= 3)
         sort_three(stack_a);
     else
         sort(stack_a, stack_b);
-
-    // int arr_a[] = {7,1,6,3,9,4,8};
-    // size_t size_a = sizeof(arr_a) / sizeof(arr_a[0]);
-    // Stack stack_a = {arr_a, size_a};
-    // int arr_b[] = {2,5};
-    // size_t size_b = sizeof(arr_b) / sizeof(arr_b[0]);
-    // Stack stack_b = {arr_b, size_b};
-    //  // Display the result
-    // ab_move result = find_cheapest_number(&stack_a, &stack_b);
-    // printf("Cheapest index: %zu\n", result.cheapest_index);
-    // printf("A moves: (%d, %zu)\n", result.a_moves.type, result.a_moves.count);
-    // printf("B moves: (%d, %zu)\n", result.b_moves.type, result.b_moves.count);
-    // printf("combined: type=rr, count=%zu\n", result.rr);
-    // printf("combined: type=rrr, count=%zu\n", result.rrr);
-
+    print_stack(stack_a);
 }

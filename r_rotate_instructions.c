@@ -26,7 +26,7 @@ void	rrb_reverse_rotate_b(Stack *stack)
 
 void	rrr_reverse_rotate_ab(Stack *stack_a, Stack *stack_b)
 {
-	rra_reverse_rotate_a(stack_a);
-	rrb_reverse_rotate_b(stack_b);
+	shift_down_stack(stack_a);
+	shift_down_stack(stack_b);
 	write(1, "rrr\n",4);
 }

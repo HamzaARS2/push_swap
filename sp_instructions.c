@@ -30,8 +30,10 @@ void	sb_swap_b(Stack *stack)
 
 void	ss_swap_ab(Stack *stack_a, Stack *stack_b)
 {
-	sa_swap_a(stack_a);
-	sb_swap_b(stack_b);
+	if (stack_a->size > 1)
+		ft_swapi(stack_a->arr, stack_a->arr + 1);
+	if (stack_b->size > 1)
+		ft_swapi(stack_b->arr, stack_b->arr + 1);
 	write(1, "ss\n",3);
 }
 

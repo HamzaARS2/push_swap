@@ -1,57 +1,35 @@
 #include "push_swap.h"
 
-ab_move count_all_moves(Stack *stack_a, Stack *stack_b, size_t index)
+t_move_ab count_all_moves(Stack *stack_a, Stack *stack_b, size_t index)
 {
-    ab_move m;
-    int diff;
+    t_move_ab m;
 
-    m.b_moves = count_moves(get_best_index(stack_b->arr, stack_a->arr[index], stack_b->size), stack_b->size, 1);
-    m.a_moves = count_moves(index, stack_a->size, 0);
-    m.rr = 0;
-    m.rrr = 0;
-    diff = m.b_moves.count - m.a_moves.count;
-    if (m.b_moves.type == m.a_moves.type && m.b_moves.type == 0)
+     m = (t_move_ab){.cheapest_index = 0,.rr = 0,.rrr = 0};
+    m.b_moves = count_b_moves(get_best_index(stack_b->arr, stack_a->arr[index], stack_b->size), stack_b->size);
+    m.a_moves = count_a_moves(index, stack_a->size);
+
+    while (m.b_moves.rb && m.a_moves.ra)
     {
-        if (diff >= 0)
-            m.rr = m.b_moves.count - diff;
-        else
-            m.rr = m.a_moves.count - (-diff);
-        m.b_moves.count -= m.rr;
-        m.a_moves.count -= m.rr;
+        m.rr++;
+        m.b_moves.rb--;
+        m.a_moves.ra--;
     }
-    else if (m.b_moves.type == m.a_moves.type && m.b_moves.type == 1)
+     while (m.b_moves.rrb && m.a_moves.rra)
     {
-         if (diff >= 0)
-            m.rrr = m.b_moves.count - diff;
-        else
-            m.rrr = m.a_moves.count - (-diff);
-        m.b_moves.count -= m.rrr;
-        m.a_moves.count -= m.rrr;
+        m.rrr++;
+        m.b_moves.rrb--;
+        m.a_moves.rra--;
     }
     return (m);
 }
 
-void    execute_all_moves(Stack *stack_a, Stack *stack_b, ab_move moves)
-{
-    while (moves.rr || moves.rrr)
-    {
-        if (moves.rr--)
-            rr_rotate_ab(stack_a, stack_b);
-        if (moves.rrr--)
-            rrr_reverse_rotate_ab(stack_a, stack_b);
-    }
-    execute_move(stack_b, moves.b_moves);
-    execute_move(stack_a, moves.a_moves);
-}
-
-
-ab_move find_cheapest_number(Stack *stack_a, Stack *stack_b)
+t_move_ab find_cheapest_number(Stack *stack_a, Stack *stack_b)
 {
     int i;
     int least_moves;
     int moves;
-    ab_move cm;
-    ab_move ab_moves;
+    t_move_ab cm;
+    t_move_ab ab_moves;
 
     least_moves = 2147483647;
     i = 0;
@@ -60,7 +38,7 @@ ab_move find_cheapest_number(Stack *stack_a, Stack *stack_b)
         if (least_moves == 1)
             return (ab_moves);
         cm = count_all_moves(stack_a, stack_b, i);
-        moves = cm.a_moves.count + cm.b_moves.count + cm.rr + cm.rrr + 1;
+        moves = cm.a_moves.ra + cm.a_moves.rra + cm.b_moves.rb + cm.b_moves.rrb+ cm.rr + cm.rrr + 1;
         if (moves < least_moves)
         {
             least_moves = moves;
@@ -72,30 +50,46 @@ ab_move find_cheapest_number(Stack *stack_a, Stack *stack_b)
     return (ab_moves);
 }
 
-static void print_stack(Stack *stack) {
-    printf("Stack arrs: [");
-    
-    if (!is_empty(stack)) {
-        for (size_t i = 0; i < stack->size; ++i) {
-            printf("%d", stack->arr[i]);
-            if (i < stack->size - 1) {
-                printf(", ");
-            }
-        }
-    }
+int find_min_index(Stack *stack)
+{
+    int i;
+    int min_i;
 
-    printf("]\n");
+    min_i = 0;
+    i = 0;
+    while (i < stack->size)
+    {
+        if (stack->arr[min_i] > stack->arr[i])
+            min_i = i;
+        i++;
+    }
+    return (min_i);
 }
+
 void    sort(Stack *stack_a, Stack *stack_b)
 {
     pb_push_b(stack_a, stack_b);
     pb_push_b(stack_a, stack_b);
-    print_stack(stack_a);
-    print_stack(stack_b);
     while (stack_a->size > 3)
     {
-        execute_all_moves(stack_a, stack_b, find_cheapest_number(stack_a, stack_b));
-        print_stack(stack_a);
-        print_stack(stack_b);
+        execute_moves(stack_a, stack_b, find_cheapest_number(stack_a, stack_b));
+        pb_push_b(stack_a, stack_b);
     }
+    sort_three(stack_a);
+    while (stack_b ->size)
+    {
+        t_move_a a_moves = count_a_moves(get_best_a_index(stack_a->arr, stack_b->arr[0], stack_a->size), stack_a->size);
+        while (a_moves.ra--)
+            ra_rotate_a(stack_a);
+        while (a_moves.rra--)
+            rra_reverse_rotate_a(stack_a);
+        pa_push_a(stack_a, stack_b);
+    }
+
+    int min_index = find_min_index(stack_a);
+    t_move_a last_moves = count_a_moves(min_index, stack_a->size);
+    while (last_moves.ra--)
+            ra_rotate_a(stack_a);
+    while (last_moves.rra--)
+            rra_reverse_rotate_a(stack_a);
 }
