@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swapi.c                                         :+:      :+:    :+:   */
+/*   ft_checker.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/15 20:08:07 by helarras          #+#    #+#             */
-/*   Updated: 2024/04/15 20:08:46 by helarras         ###   ########.fr       */
+/*   Created: 2024/04/16 13:29:00 by helarras          #+#    #+#             */
+/*   Updated: 2024/04/18 13:19:46 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#ifndef FT_CHECKER_H
+# define FT_CHECKER_H
 
-void	ft_swapi(int *n1, int *n2)
-{
-	int	temp;
+char	**read_instructions(void);
+void	execute_instruction(t_stack stack_a, t_stack stack_b,
+			char *instruction);
+void	execute_all(t_stack *stack_a, t_stack *stack_b);
+int		check_stack(t_stack *stack_a, t_stack *stack_b);
 
-	temp = *n1;
-	*n1 = *n2;
-	*n2 = temp;
-}
+#endif

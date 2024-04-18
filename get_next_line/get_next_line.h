@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swapi.c                                         :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/15 20:08:07 by helarras          #+#    #+#             */
-/*   Updated: 2024/04/15 20:08:46 by helarras         ###   ########.fr       */
+/*   Created: 2024/01/15 15:38:02 by helarras          #+#    #+#             */
+/*   Updated: 2024/04/18 12:29:47 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-void	ft_swapi(int *n1, int *n2)
-{
-	int	temp;
+# include <stdlib.h>
+# include <unistd.h>
 
-	temp = *n1;
-	*n1 = *n2;
-	*n2 = temp;
-}
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
+# endif
+
+char	*get_next_line(int fd);
+size_t	ft_strlen(char *str);
+size_t	is_exists(char *str, char c);
+char	*sclear(char **s);
+char	*strcombine(char *s1, char *s2);
+
+#endif

@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swapi.c                                         :+:      :+:    :+:   */
+/*   ft_checker.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/15 20:08:07 by helarras          #+#    #+#             */
-/*   Updated: 2024/04/15 20:08:46 by helarras         ###   ########.fr       */
+/*   Created: 2024/04/16 13:39:53 by helarras          #+#    #+#             */
+/*   Updated: 2024/04/18 13:28:14 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "ft_checker.h"
 
-void	ft_swapi(int *n1, int *n2)
+int	main(int argc, char *argv[])
 {
-	int	temp;
+	t_stack	*stack_a;
+	t_stack	*stack_b;
+	t_data	data;
+	int		size;
 
-	temp = *n1;
-	*n1 = *n2;
-	*n2 = temp;
+	size = argc - 1;
+	if (!size)
+		return (0);
+	data = get_data(argv + 1, size);
+	if (!validate_data(data.nums))
+		exit(1);
+	stack_a = init_stack(data, 1);
+	stack_b = init_stack((t_data){0}, 0);
+	execute_all(stack_a, stack_b);
+	check_stack(stack_a, stack_b);
 }

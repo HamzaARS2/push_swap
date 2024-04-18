@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swapi.c                                         :+:      :+:    :+:   */
+/*   sort_three.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/15 20:08:07 by helarras          #+#    #+#             */
-/*   Updated: 2024/04/15 20:08:46 by helarras         ###   ########.fr       */
+/*   Created: 2024/04/16 14:35:10 by helarras          #+#    #+#             */
+/*   Updated: 2024/04/17 19:59:07 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_swapi(int *n1, int *n2)
+void	sort_three(t_stack *stack)
 {
-	int	temp;
-
-	temp = *n1;
-	*n1 = *n2;
-	*n2 = temp;
+	if (stack->arr[0] > stack->arr[1] && 
+		(stack->arr[0] > stack->arr[stack->size - 1]))
+		ra_rotate_a(stack, 1);
+	if (stack->arr[stack->size - 1] < stack->arr[1] && 
+		(stack->arr[stack->size - 1] < stack->arr[0]))
+		rra_reverse_rotate_a(stack, 1);
+	if (stack->arr[1] > stack->arr[stack->size - 1])
+		rra_reverse_rotate_a(stack, 1);
+	if (stack->arr[0] > stack->arr[1])
+		sa_swap_a(stack, 1);
 }
