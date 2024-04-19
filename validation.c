@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:37:03 by helarras          #+#    #+#             */
-/*   Updated: 2024/04/18 15:08:55 by helarras         ###   ########.fr       */
+/*   Updated: 2024/04/18 21:59:59 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	is_digits_only(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] == 45 || str[i] == 43)
+	if ((str[i] == 45 || str[i] == 43) && str[i + 1] != 0)
 		i++;
 	while (str[i])
 	{

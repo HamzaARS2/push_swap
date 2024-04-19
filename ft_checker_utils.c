@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 19:02:34 by helarras          #+#    #+#             */
-/*   Updated: 2024/04/18 10:56:06 by helarras         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:36:49 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**read_instructions(void)
 	return (instructions);
 }
 
-void	execute_instruction(t_stack *stack_a, t_stack *stack_b,
+int	execute_instruction(t_stack *stack_a, t_stack *stack_b,
 		char *instruction)
 {
 	if (!ft_strcmp(instruction, "sa"))
@@ -55,6 +55,9 @@ void	execute_instruction(t_stack *stack_a, t_stack *stack_b,
 		rrb_reverse_rotate_b(stack_b, 0);
 	else if (!ft_strcmp(instruction, "rrr"))
 		rrr_reverse_rotate_ab(stack_a, stack_b, 0);
+	else
+		return (0);
+	return (1);
 }
 
 void	execute_all(t_stack *stack_a, t_stack *stack_b)
@@ -64,22 +67,12 @@ void	execute_all(t_stack *stack_a, t_stack *stack_b)
 
 	i = 0;
 	instructions = read_instructions();
-	while (instructions[i])
-		execute_instruction(stack_a, stack_b, instructions[i++]);
-}
-
-int	check_stack(t_stack *stack_a, t_stack *stack_b)
-{
-	size_t	i;
-
-	i = 1;
-	if (stack_b->size > 0)
-		return (write(1, "KO\n", 3));
-	while (i < stack_a->size)
+	while (instructions && instructions[i])
 	{
-		if (stack_a->arr[i - 1] > stack_a->arr[i])
-			return (write(1, "KO\n", 3));
-		i++;
+		if (!execute_instruction(stack_a, stack_b, instructions[i++]))
+		{
+			write(2, "Error\n", 6);
+			exit(1);
+		}
 	}
-	return (write(1, "OK\n", 3));
 }

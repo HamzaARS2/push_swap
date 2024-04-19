@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:50:10 by helarras          #+#    #+#             */
-/*   Updated: 2024/04/18 12:18:19 by helarras         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:36:41 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,6 @@ void		fill_stack(t_stack *stack, char **data);
 int			clear_stack(t_stack *stack);
 void		shift_up_stack(t_stack *stack);
 void		shift_down_stack(t_stack *stack);
+int			check_stack(t_stack *stack_a, t_stack *stack_b);
+
 #endif

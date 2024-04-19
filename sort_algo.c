@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 20:13:29 by helarras          #+#    #+#             */
-/*   Updated: 2024/04/17 22:02:38 by helarras         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:39:52 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ void	sort(t_stack *stack_a, t_stack *stack_b)
 {
 	t_move_a	a_moves;
 
+	if (check_stack(stack_a, stack_b))
+		return ;
 	pb_push_b(stack_a, stack_b, 1);
 	pb_push_b(stack_a, stack_b, 1);
 	while (stack_a->size > 3)
